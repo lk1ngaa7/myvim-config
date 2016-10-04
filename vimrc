@@ -1,6 +1,7 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 ""实用设置
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif		" 记住上次打开的位置，注意~/.viminfo 的权限
 set autoread                " 设置当文件被改动时自动载入
 filetype plugin on          "允许插件  
 set clipboard+=unnamed      "共享剪贴板  
@@ -31,7 +32,7 @@ set gdefault                "行内替换
 set langmenu=zh_CN.UTF-8
 set helplang=cn
 set iskeyword+=_,$,@,%,#,-              " 带有如下符号的单词不要被换行分割
-set linespace=0             " 字符间插入的像素行数目
+set linespace=1             " 字符间插入的像素行数目
 set wildmenu                " 增强模式中的命令行自动完成操作
 set backspace=2             " 使回格键（backspace）正常处理indent, eol, start等
 " 允许backspace和光标键跨越行边界
@@ -74,6 +75,23 @@ filetype indent on          " 为特定文件类型载入相关缩进文件
     set background=dark
     colorscheme solarized
 "}
+
+"{ comment 插件设置
+	let g:NERDSpaceDelims = 1 " 注释之后添加1个空格
+
+	let g:NERDCompactSexyComs = 1 " 多行注释
+
+	let g:NERDDefaultAlign = 'left' "注释符左对齐
+
+	let g:NERDAltDelims_php = 1 "默认使用的注释风格
+
+	let g:NERDCustomDelimiters = { 'php': { 'left': '/**','right': '*/' } } "自定义语言注释风格
+
+	let g:NERDCommentEmptyLines = 1 "允许注释空行
+
+	let g:NERDTrimTrailingWhitespace = 1
+"}
+
 """""新文件标题""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "新建.c,.h,.sh,.java文件，自动插入文件头 
 autocmd BufNewFile *.cpp,*.[ch],*.sh,*.php,*.java exec ":call SetTitle()" 
@@ -108,7 +126,7 @@ vmap <C-c> "+y						" 选中状态下 Ctrl+c 复制
 
 nnoremap <F2> :g/^\s*$/d<CR>		"去空行  
 
-nnoremap <C-W> :vert diffsplit
+"nnoremap <C-D> :vert diffsplit
 "比较文件  
 
 map <F3> :tabnew .<CR>				"列出当前目录文件  
@@ -118,7 +136,6 @@ if !exists('g:PHP_SYNTAX_CHECK_BIN')
     let g:PHP_SYNTAX_CHECK_BIN = '/usr/local/bin/php'
 endif
 function! PHPSyntaxCheck()
-	exec "ls"
     let result = system(g:PHP_SYNTAX_CHECK_BIN.' -l -n '.expand('%'))
     if (stridx(result, 'No syntax errors detected') == -1)
         echohl WarningMsg | echo result | echohl None
