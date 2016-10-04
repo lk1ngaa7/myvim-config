@@ -5,15 +5,15 @@
 # Created Time: Tue Oct  4 17:28:55 2016
 #########################################################################
 #!/bin/bash
-if [!-d "~/.vim"]; then
+if [ ! -d `eval echo ~/.vim` ]; then
 	mkdir ~/.vim
 fi
-if [!-d "~/.vim/plugin" ]; then
-	mkdir ~/.vim/pulgin
+if [ ! -d `eval echo ~/.vim/plugin` ]; then
+	mkdir ~/.vim/plugin
 fi
-if [!-d "~/.vim/doc"]; then
+if [ ! -d `eval echo ~/.vim/doc` ]; then
 	mkdir ~/.vim/doc
 fi
 cp ~/.vimrc ~/.vimrc_back && cp vimrc ~/.vimrc
-cd solarized && cp -rf ./* ~/.vim/ && cd .. && cd vimcdoc-1.9.0 && sh vimcdoc.sh -i &&cd plugin/NERD_commenter/ && cp -f NERD_commenter.vim ~/.vim/plugin && cp -f NERD_commenter.txt ~/.vim/doc
+cd solarized && cp -rf ./* ~/.vim/ && cd .. && cd vimcdoc-1.9.0 && sh vimcdoc.sh -i && cd .. && cd plugin/NERD_commenter/ && cp -f NERD_commenter.vim ~/.vim/plugin && cp -f NERD_commenter.txt ~/.vim/doc && echo "Install Success"
 
