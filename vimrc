@@ -74,9 +74,6 @@ filetype indent on          " 为特定文件类型载入相关缩进文件
     set background=dark
     colorscheme solarized
 "}
-"au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm
-"'\"")|else|exe "norm $"|endif|endif
-"
 """""新文件标题""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "新建.c,.h,.sh,.java文件，自动插入文件头 
 autocmd BufNewFile *.cpp,*.[ch],*.sh,*.php,*.java exec ":call SetTitle()" 
@@ -115,7 +112,7 @@ nnoremap <C-W> :vert diffsplit
 "比较文件  
 
 map <F3> :tabnew .<CR>				"列出当前目录文件  
-"{	php 语法检查
+"{	php 语法检查 , 保存:w 时，进行语法检查，注意配置 php 的位置
 autocmd BufWritePost *.php call PHPSyntaxCheck()
 if !exists('g:PHP_SYNTAX_CHECK_BIN')
     let g:PHP_SYNTAX_CHECK_BIN = '/usr/local/bin/php'
@@ -127,8 +124,8 @@ function! PHPSyntaxCheck()
         echohl WarningMsg | echo result | echohl None
     endif
 endfunction
-
 "}
+
 "C，C++ 按F5编译运行
 map <F5> :call CompileRunGcc()<CR>
 func! CompileRunGcc()
@@ -153,4 +150,3 @@ func! Rungdb()
     exec "!g++ % -g -o %<"
     exec "!gdb ./%<"
 endfunc
-au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif

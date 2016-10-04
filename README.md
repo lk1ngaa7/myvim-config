@@ -1,4 +1,12 @@
 # myvim-config
-this is my-self VIM config
+vim config of lk1ngaa7@gmail.com
 ---
-change to .vimrc to your /.vimrc to enjoy it.
+###INSTALL
+1.git clone this repo
+2.cd myvim-config/ and sh install.sh
+###FEATURE
+* php syntax,note:config the php bin in .vimrc
+* nerd_comment
+* solarized theme:config your terminal also to solarized
+###NOTE
+make sure your vim just load the ~/.vimrc
