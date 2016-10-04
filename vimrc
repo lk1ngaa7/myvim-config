@@ -108,7 +108,7 @@ vmap <C-c> "+y						" 选中状态下 Ctrl+c 复制
 
 nnoremap <F2> :g/^\s*$/d<CR>		"去空行  
 
-nnoremap <C-W> :vert diffsplit
+"nnoremap <C-W> :vert diffsplit
 "比较文件  
 
 map <F3> :tabnew .<CR>				"列出当前目录文件  
