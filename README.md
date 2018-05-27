@@ -10,12 +10,14 @@ vim config of lk1ngaa7@gmail.com
 
 ###FEATURE
 * 简单！，只要能 clone 这个仓库，你就不需要操心配置，插件安装被墙啥的，我都放仓库里了! 
+* vim 要搭配ctag使用
 
 ###NOTE
 插件列表:
-gitv
-vim-easy-align
-vim-easymotion
-vim-fugitive
-vim-gitgutter
-
+gitv 查看单文件gitlog
+vim-easy-align  对其
+vim-easymotion  跳转
+vim-fugitive    vim增强
+vim-gitgutter   gitdiff 查看
+tagbar          查看变量
+vim-cn-doc      中文文档
