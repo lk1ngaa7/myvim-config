@@ -13,4 +13,3 @@ if [ ! -d `eval echo ~/.vim/doc` ]; then
 fi
 cd solarized && cp -rf ./* ~/.vim/ && echo 'solarized succceed' 
 cd .. && cd vimcdoc-1.9.0 && sh vimcdoc.sh -i && echo "vim chinese doc install succeed" 
-
