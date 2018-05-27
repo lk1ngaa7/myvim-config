@@ -10,6 +10,7 @@ vim config of lk1ngaa7@gmail.com
 
 ###FEATURE
 * 简单！，只要能 clone 这个仓库，你就不需要操心配置，插件安装被墙啥的，我都放仓库里了! 
+
 ###NOTE
 插件列表:
 gitv
