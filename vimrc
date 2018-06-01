@@ -18,8 +18,8 @@ set autoindent              " 自动缩进
     set tabstop=4               " Tab键的宽度
     set softtabstop=4
     set shiftwidth=4
+	set expandtab             " 不要用空格代替制表符
 "}
-set noexpandtab             " 不要用空格代替制表符
 set smarttab                " 在行和段开始处使用制表符
 set history=100             " 历史记录数
 set ignorecase              "搜索忽略大小写
@@ -75,23 +75,41 @@ filetype indent on          " 为特定文件类型载入相关缩进文件
     set background=dark
     colorscheme solarized
 "}
-
-"{ comment 插件设置
-	let g:NERDSpaceDelims = 1 " 注释之后添加1个空格
-
-	let g:NERDCompactSexyComs = 1 " 多行注释
-
-	let g:NERDDefaultAlign = 'left' "注释符左对齐
-
-	let g:NERDAltDelims_php = 1 "默认使用的注释风格
-
-	let g:NERDCustomDelimiters = { 'php': { 'left': '/**','right': '*/' } } "自定义语言注释风格
-
-	let g:NERDCommentEmptyLines = 1 "允许注释空行
-
-	let g:NERDTrimTrailingWhitespace = 1
+"{plugin begin
+"{ pathogen
+execute pathogen#infect()
 "}
 
+"{nerdcommenter 
+let g:NERDSpaceDelims = 1 " 注释之后添加1个空格
+
+let g:NERDCompactSexyComs = 1 " 多行注释
+
+let g:NERDDefaultAlign = 'left' "注释符左对齐
+
+let g:NERDAltDelims_php = 1 "默认使用的注释风格
+
+let g:NERDCustomDelimiters = { 'php': { 'left': '/**','right': '*/' } } "自定义语言注释风格
+
+let g:NERDCommentEmptyLines = 1 "允许注释空行
+
+let g:NERDTrimTrailingWhitespace = 1
+"}
+"{gitv 
+"}
+"{tagbar  
+"}
+"{vim-easy-align
+"}
+"{vim-easymotion
+"}
+"{vim-fugitive
+"}
+
+"{ vim-gitgutter
+set updatetime=100
+"}
+"}plugin end
 """""新文件标题""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "新建.c,.h,.sh,.java文件，自动插入文件头 
 autocmd BufNewFile *.cpp,*.[ch],*.sh,*.php,*.java exec ":call SetTitle()" 
@@ -133,7 +151,7 @@ map <F3> :tabnew .<CR>				"列出当前目录文件
 "{	php 语法检查 , 保存:w 时，进行语法检查，注意配置 php 的位置
 autocmd BufWritePost *.php call PHPSyntaxCheck()
 if !exists('g:PHP_SYNTAX_CHECK_BIN')
-    let g:PHP_SYNTAX_CHECK_BIN = '/usr/local/bin/php'
+    let g:PHP_SYNTAX_CHECK_BIN = '/home/homework/php/bin/php'
 endif
 function! PHPSyntaxCheck()
     let result = system(g:PHP_SYNTAX_CHECK_BIN.' -l -n '.expand('%'))
@@ -142,28 +160,3 @@ function! PHPSyntaxCheck()
     endif
 endfunction
 "}
-
-"C，C++ 按F5编译运行
-map <F5> :call CompileRunGcc()<CR>
-func! CompileRunGcc()
-    exec "w"
-    if &filetype == 'c'
-        exec "!g++ % -o %<"
-        exec "! ./%<"
-    elseif &filetype == 'cpp'
-        exec "!g++ % -o %<"
-        exec "! ./%<"
-    elseif &filetype == 'java' 
-        exec "!javac %" 
-        exec "!java %<"
-    elseif &filetype == 'sh'
-        :!./%
-    endif
-endfunc
-"C,C++的调试
-map <F8> :call Rungdb()<CR>
-func! Rungdb()
-    exec "w"
-    exec "!g++ % -g -o %<"
-    exec "!gdb ./%<"
-endfunc
