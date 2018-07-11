@@ -96,18 +96,34 @@ let g:NERDCommentEmptyLines = 1 "允许注释空行
 let g:NERDTrimTrailingWhitespace = 1
 "}
 "{gitv 
+
+
 "}
 "{tagbar  
+
+set tags=/home/homework/tags
+
 "}
 "{vim-easy-align
+    "Start interactive EasyAlign in visual mode (e.g. vipga)
+    xmap ga <Plug>(EasyAlign)
+    "Start interactive EasyAlign for a motion/text object (e.g. gaip)
+    nmap ga <Plug>(EasyAlign)
 "}
 "{vim-easymotion
+
 "}
 "{vim-fugitive
-"}
 
+
+"}
+"{ag.vim
+
+
+"}
 "{ vim-gitgutter
 set updatetime=100
+let g:gitgutter_max_signs = 50000
 "}
 "}plugin end
 """""新文件标题""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
