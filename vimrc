@@ -1,5 +1,5 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""实用设置
+"Settings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif		" 记住上次打开的位置，注意~/.viminfo 的权限
 set autoread                " 设置当文件被改动时自动载入
@@ -70,6 +70,12 @@ endif
 "}  
 filetype plugin on          " 载入文件类型插件
 filetype indent on          " 为特定文件类型载入相关缩进文件
+if version > 580
+    highlight clear
+    if exists("syntax_on")
+        syntax reset
+    endif
+endif
 "{  color schem solorized
     syntax on           " 语法高亮  
     set background=dark
@@ -125,45 +131,18 @@ set tags=/home/homework/tags
 set updatetime=100
 let g:gitgutter_max_signs = 50000
 "}
-"}plugin end
-"""""新文件标题""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"新建.c,.h,.sh,.java文件，自动插入文件头 
-autocmd BufNewFile *.cpp,*.[ch],*.sh,*.php,*.java exec ":call SetTitle()" 
-""定义函数SetTitle，自动插入文件头 
-func SetTitle() 
-    "如果文件类型为.sh文件 
-    if &filetype == 'sh' 
-        call setline(1,"\#########################################################################") 
-        call append(line("."), "\# File Name: ".expand("%")) 
-        call append(line(".")+1, "\# Author: lk1ngaa7") 
-        call append(line(".")+2, "\# mail: lk1ngaa7@gmail.com") 
-        call append(line(".")+3, "\# Created Time: ".strftime("%c")) 
-        call append(line(".")+4, "\#########################################################################") 
-        call append(line(".")+5, "\#!/bin/bash") 
-        call append(line(".")+6, "") 
-    else 
-        call setline(1, "/*************************************************************************") 
-        call append(line("."), "    > File Name: ".expand("%")) 
-        call append(line(".")+1, "    > Author: lk1ngaa7") 
-        call append(line(".")+2, "    > Mail: lk1ngaa7@gmail.com ") 
-        call append(line(".")+3, "    > Created Time: ".strftime("%c")) 
-        call append(line(".")+4, " ************************************************************************/") 
-        call append(line(".")+5, "")
-    endif
-    "新建文件后，自动定位到文件末尾
-    autocmd BufNewFile * normal G
-endfunc 
+
+""}plugin end
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"键盘命令
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" some key maps
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 vmap <C-c> "+y						" 选中状态下 Ctrl+c 复制
-
 nnoremap <F2> :g/^\s*$/d<CR>		"去空行  
+:map <C-o>  :tabn <CR>
+:map <C-i>  :tabp <CR>
+map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 
-"nnoremap <C-W> :vert diffsplit
-"比较文件  
-
-map <F3> :tabnew .<CR>				"列出当前目录文件  
 "{	php 语法检查 , 保存:w 时，进行语法检查，注意配置 php 的位置
 autocmd BufWritePost *.php call PHPSyntaxCheck()
 if !exists('g:PHP_SYNTAX_CHECK_BIN')
